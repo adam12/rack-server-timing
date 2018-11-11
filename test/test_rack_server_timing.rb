@@ -14,7 +14,7 @@ describe RackServerTiming::Middleware do
     end
 
     response = Rack::MockRequest.new(app).get("/")
-    assert response.has_header?("SERVER_TIMING"), "Server-Timing header missing"
+    assert response.has_header?("Server-Timing"), "Server-Timing header missing"
   end
 end
 

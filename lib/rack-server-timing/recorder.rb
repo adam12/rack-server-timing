@@ -20,7 +20,7 @@ module RackServerTiming
     end
 
     def header_name
-      "SERVER_TIMING"
+      "Server-Timing"
     end
 
     def header_value
