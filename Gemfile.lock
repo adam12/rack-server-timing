@@ -1,15 +1,24 @@
+PATH
+  remote: .
+  specs:
+    rack-server-timing (0.1.0)
+      rack (>= 2.0, < 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
     minitest (5.11.3)
     rack (2.0.6)
+    roda (3.13.0)
+      rack
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   minitest
-  rack
+  rack-server-timing!
+  roda
 
 BUNDLED WITH
    1.16.2
