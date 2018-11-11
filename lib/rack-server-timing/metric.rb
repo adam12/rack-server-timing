@@ -1,4 +1,6 @@
 # frozen-string-literal: true
+require "benchmark"
+
 module RackServerTiming
   class Metric
     attr_reader :name
@@ -33,6 +35,25 @@ module RackServerTiming
         duration = kwargs[:duration]
         description = kwargs[:description]
       end
+
+      new(name: name, duration: duration, description: description)
+    end
+
+    def self.build_realtime(*args, **kwargs, &block)
+      name = nil
+      description = nil
+
+      if not args.empty?
+        name = args.shift
+        description = args.shift
+      end
+
+      if not kwargs.empty?
+        name = kwargs[:name]
+        description = kwargs[:description]
+      end
+
+      duration = Benchmark.realtime { block.call }
 
       new(name: name, duration: duration, description: description)
     end

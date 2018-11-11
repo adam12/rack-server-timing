@@ -14,6 +14,11 @@ module RackServerTiming
       metrics[metric.name] = metric
     end
 
+    def benchmark(*args, &block)
+      metric = Metric.build_realtime(*args, &block)
+      metrics[metric.name] = metric
+    end
+
     def header_name
       "SERVER_TIMING"
     end
