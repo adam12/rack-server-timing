@@ -3,7 +3,7 @@ require "rack-server-timing/middleware"
 require "rack"
 
 describe RackServerTiming::Middleware do
-  it "sets server timing header" do
+  it "sets server timing header when timing data" do
     app = Rack::Builder.new do
       use RackServerTiming::Middleware
 
@@ -15,6 +15,19 @@ describe RackServerTiming::Middleware do
 
     response = Rack::MockRequest.new(app).get("/")
     assert response.has_header?("Server-Timing"), "Server-Timing header missing"
+  end
+
+  it "skips adding server timing header with no timing data" do
+    app = Rack::Builder.new do
+      use RackServerTiming::Middleware
+
+      run ->(env) {
+        [200, {}, ["OK"]]
+      }
+    end
+
+    response = Rack::MockRequest.new(app).get("/")
+    refute response.has_header?("Server-Timing")
   end
 end
 

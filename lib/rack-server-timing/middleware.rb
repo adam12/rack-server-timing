@@ -11,7 +11,9 @@ module RackServerTiming
       env["rack.server_timing"] = recorder = Recorder.new
       status, headers, response = @app.call(env)
 
-      headers[recorder.header_name] ||= recorder.header_value
+      if (value = recorder.header_value) and not value.empty?
+        headers[recorder.header_name] ||= value
+      end
 
       [status, headers, response]
     end
