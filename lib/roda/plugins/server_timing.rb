@@ -21,20 +21,24 @@ class Roda
 
           result
         end
+      end
 
-        # :nodoc:
+      module RenderMethods # :nodoc:
         def render(*)
           benchmark(name: "Render") { super }
         end
 
-        # :nodoc:
         def view(*)
           benchmark(name: "Render") { super }
         end
       end
 
-      def self.configure(app)
+      def self.configure(app, opts=OPTS) # :nodoc:
         app.use RackServerTiming::Middleware
+
+        if app.opts.has_key?(:render)
+          app.send(:include, RenderMethods)
+        end
       end
     end
 

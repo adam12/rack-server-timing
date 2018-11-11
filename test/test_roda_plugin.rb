@@ -22,13 +22,13 @@ describe "Roda Plugin" do
       response = Rack::MockRequest.new(app).get("/render")
 
       assert_equal "Render", response.body
-      assert response.has_header?("Server-Timing"), "Server-Timing header missing"
+      refute_empty response["Server-Timing"]
     end
 
     it "benchmarks #view" do
       response = Rack::MockRequest.new(app).get("/view")
       assert_equal "View", response.body
-      assert response.has_header?("Server-Timing"), "Server-Timing header missing"
+      refute_empty response["Server-Timing"]
     end
   end
 
