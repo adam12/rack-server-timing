@@ -39,6 +39,20 @@ And then record your metrics:
 env["rack.server_timing"].record("DB", 200)
 ```
 
+## Usage in a Roda application
+
+Enable the plugin `server_timing` after `render` (if you wish to have the rendering profiled automatically).
+
+```ruby
+class App < Roda
+  plugin :render # Optional
+  plugin :server_timing
+end
+```
+
+A convenient `server_timing` helper is available to quickly `record` or `benchmark`
+timing values.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/adam12/rack-server-timing.
