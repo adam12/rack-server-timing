@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
-group :test do
-  gem "minitest"
-end
+#gemspec
+
+gem "rack"
+gem "minitest"
