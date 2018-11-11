@@ -36,13 +36,13 @@ describe RackServerTiming::Recorder do
   describe "#record" do
     it "passes args to Metric builder" do
       metric = recorder.record("DB", 100)
-      assert_equal "DB", metric.shortname
+      assert_equal "DB", metric.name
       assert_equal 100, metric.duration
     end
 
     it "passes kwargs to Metric builder" do
-      metric = recorder.record(shortname: "DB", duration: 100)
-      assert_equal "DB", metric.shortname
+      metric = recorder.record(name: "DB", duration: 100)
+      assert_equal "DB", metric.name
       assert_equal 100, metric.duration
     end
 
@@ -59,27 +59,27 @@ describe RackServerTiming::Metric do
     it "accepts arguments" do
       metric = RackServerTiming::Metric.build("DB", 100)
 
-      assert_equal "DB", metric.shortname
+      assert_equal "DB", metric.name
       assert_equal 100, metric.duration
     end
 
     it "accepts kwargs" do
-      metric = RackServerTiming::Metric.build(shortname: "DB", duration: 100)
+      metric = RackServerTiming::Metric.build(name: "DB", duration: 100)
 
-      assert_equal "DB", metric.shortname
+      assert_equal "DB", metric.name
       assert_equal 100, metric.duration
     end
   end
 
   describe "#formatted" do
     it "properly formatted output" do
-      metric = RackServerTiming::Metric.new(shortname: "missedCache")
+      metric = RackServerTiming::Metric.new(name: "missedCache")
       assert_equal "missedCache", metric.formatted
 
-      metric = RackServerTiming::Metric.new(shortname: "DB", duration: 100)
+      metric = RackServerTiming::Metric.new(name: "DB", duration: 100)
       assert_equal "DB;dur=100", metric.formatted
 
-      metric = RackServerTiming::Metric.new(shortname: "DB", duration: 100, description: "Database")
+      metric = RackServerTiming::Metric.new(name: "DB", duration: 100, description: "Database")
       assert_equal %q|DB;dur=100;desc="Database"|, metric.formatted
     end
   end

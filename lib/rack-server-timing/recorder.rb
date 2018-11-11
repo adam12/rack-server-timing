@@ -11,7 +11,7 @@ module RackServerTiming
 
     def record(*args)
       metric = Metric.build(*args)
-      metrics[metric.shortname] = metric
+      metrics[metric.name] = metric
     end
 
     def header_name
