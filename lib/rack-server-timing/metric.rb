@@ -28,6 +28,7 @@ module RackServerTiming
       if not args.empty?
         name = args.shift
         duration = args.shift
+        description = args.shift
       end
 
       if not kwargs.empty?
