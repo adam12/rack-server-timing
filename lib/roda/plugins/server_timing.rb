@@ -33,7 +33,7 @@ class Roda
         end
       end
 
-      def self.configure(app, opts=OPTS) # :nodoc:
+      def self.configure(app) # :nodoc:
         app.use RackServerTiming::Middleware
 
         if app.opts.has_key?(:render)
