@@ -13,6 +13,11 @@ module RackServerTiming
       @description = description
     end
 
+    def increment(delta)
+      @duration += delta
+      self
+    end
+
     def formatted
       String.new(name).tap do |output|
         output << %Q|;dur=#{duration}|       if duration
