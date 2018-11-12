@@ -9,7 +9,6 @@ describe "Sequel DB extension" do
 
     run ->(env) {
       db = Sequel.connect("mock://")
-      db.loggers = [Logger.new("/dev/null")]
       db.extension :server_timing
 
       2.times { db[:table].to_a }

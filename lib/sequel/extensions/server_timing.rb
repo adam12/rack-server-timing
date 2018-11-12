@@ -1,3 +1,4 @@
+# frozen-string-literal: true
 require "sequel"
 
 module RackServerTiming
@@ -6,6 +7,13 @@ module RackServerTiming
       RackServerTiming::Current.recorder.increment("DB", duration, "Database")
 
       super
+    end
+
+    def self.extended(base)
+      return unless base.loggers.empty?
+
+      require "logger"
+      base.loggers = [Logger.new("/dev/null")]
     end
   end
 
