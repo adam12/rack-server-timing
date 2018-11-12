@@ -78,22 +78,6 @@ describe RackServerTiming::Recorder do
 end
 
 describe RackServerTiming::Metric do
-  describe ".build" do
-    it "accepts arguments" do
-      metric = RackServerTiming::Metric.build("DB", 100)
-
-      assert_equal "DB", metric.name
-      assert_equal 100, metric.duration
-    end
-
-    it "accepts kwargs" do
-      metric = RackServerTiming::Metric.build(name: "DB", duration: 100)
-
-      assert_equal "DB", metric.name
-      assert_equal 100, metric.duration
-    end
-  end
-
   describe "#formatted" do
     it "properly formatted output" do
       metric = RackServerTiming::Metric.new(name: "missedCache")

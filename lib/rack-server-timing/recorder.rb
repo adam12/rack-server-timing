@@ -1,4 +1,5 @@
 # frozen-string-literal: true
+require "benchmark"
 require_relative "metric"
 
 module RackServerTiming
@@ -9,6 +10,11 @@ module RackServerTiming
       @metrics = {}
     end
 
+    ##
+    # Increment the metric of :name: by :duration:, creating the metric if
+    # it did not already exist.
+    #
+    # Accepts arguments as positional arguments or keyword arguments.
     def increment(name = nil, duration = nil, description = nil, **kwargs)
       name = kwargs[:name] if name.nil?
       duration = kwargs[:duration] if duration.nil?
@@ -22,14 +28,37 @@ module RackServerTiming
       end
     end
 
-    def record(*args)
-      metric = Metric.build(*args)
-      metrics[metric.name] = metric
+    ##
+    # Record the metric of :name: with :duration: and optionally :description:.
+    #
+    # Accepts arguments as positional arguments or keyword arguments.
+    def record(name = nil, duration = nil, description = nil, **kwargs)
+      name ||= kwargs[:name]
+      duration ||= kwargs[:duration]
+      description ||= kwargs[:description]
+
+      metrics[name] = Metric.new(
+        name: name,
+        duration: duration,
+        description: description
+      )
     end
 
-    def benchmark(*args, &block)
-      metric = Metric.build_realtime(*args, &block)
-      metrics[metric.name] = metric
+    ##
+    # Record the metric of :name: with an optional :description:, evaluating the
+    # provided block for :duration:.
+    #
+    # Accepts arguments as positional arguments or keyword arguments.
+    def benchmark(name = nil, description = nil, **kwargs, &block)
+      name ||= kwargs[:name]
+      description ||= kwargs[:description]
+      duration = Benchmark.realtime { block.call }
+
+      metrics[name] = Metric.new(
+        name: name,
+        duration: duration,
+        description: description,
+      )
     end
 
     def header_name
