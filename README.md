@@ -53,6 +53,17 @@ end
 A convenient `server_timing` helper is available to quickly `record` or `benchmark`
 timing values.
 
+## Sequel timing
+
+Enable the `server_timing` extension in your database instance. This extension will automatically create a
+null logging instance if there is no logging configured so there _may_ be a small performance hit.
+
+```ruby
+DB = Sequel.connect
+
+DB.extension :server_timing
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/adam12/rack-server-timing.

@@ -1,5 +1,6 @@
 # frozen-string-literal: true
 require_relative "recorder"
+require_relative "current"
 
 module RackServerTiming
   class Middleware
@@ -8,7 +9,9 @@ module RackServerTiming
     end
 
     def call(env)
-      env["rack.server_timing"] = recorder = Recorder.new
+      recorder = Recorder.new
+
+      env["rack.server_timing"] = Current.recorder = recorder
       status, headers, response = @app.call(env)
 
       if (value = recorder.header_value) and not value.empty?
@@ -16,6 +19,8 @@ module RackServerTiming
       end
 
       [status, headers, response]
+    ensure
+      Current.clear!
     end
   end
 end

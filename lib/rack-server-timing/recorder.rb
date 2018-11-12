@@ -9,6 +9,19 @@ module RackServerTiming
       @metrics = {}
     end
 
+    def increment(name = nil, duration = nil, description = nil, **kwargs)
+      name = kwargs[:name] if name.nil?
+      duration = kwargs[:duration] if duration.nil?
+      description = kwargs[:description] if description.nil?
+
+      if (metric = metrics[name])
+        metric.increment(duration)
+      else
+        metric = Metric.new(name: name, duration: duration, description: description)
+        metrics[name] = metric
+      end
+    end
+
     def record(*args)
       metric = Metric.build(*args)
       metrics[metric.name] = metric
