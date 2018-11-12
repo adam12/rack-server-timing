@@ -50,15 +50,18 @@ module RackServerTiming
     #
     # Accepts arguments as positional arguments or keyword arguments.
     def benchmark(name = nil, description = nil, **kwargs, &block)
+      result = nil
       name ||= kwargs[:name]
       description ||= kwargs[:description]
-      duration = Benchmark.realtime { block.call }
+      duration = Benchmark.realtime { result = block.call }
 
       metrics[name] = Metric.new(
         name: name,
         duration: duration,
         description: description,
       )
+
+      result
     end
 
     def header_name

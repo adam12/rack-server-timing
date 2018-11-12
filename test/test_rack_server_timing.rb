@@ -68,11 +68,19 @@ describe RackServerTiming::Recorder do
 
   describe "#benchmark" do
     it "evaluates block and records duration" do
-      metric = recorder.benchmark("DB") do
+      recorder.benchmark("DB") do
         sleep 0.1
       end
 
-      assert_in_delta 0.1, metric.duration, 0.05
+      assert_in_delta 0.1, recorder.metrics["DB"].duration, 0.05
+    end
+
+    it "returns value of block" do
+      result = recorder.benchmark("DB") do
+        "OK"
+      end
+
+      assert_equal "OK", result
     end
   end
 end
