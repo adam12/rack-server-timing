@@ -11,6 +11,7 @@ GEM
     rack (2.0.6)
     roda (3.13.0)
       rack
+    sequel (5.14.0)
 
 PLATFORMS
   ruby
@@ -19,6 +20,7 @@ DEPENDENCIES
   minitest
   rack-server-timing!
   roda
+  sequel
 
 BUNDLED WITH
    1.16.2
