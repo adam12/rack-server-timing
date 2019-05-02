@@ -9,9 +9,11 @@ GEM
   specs:
     minitest (5.11.3)
     rack (2.0.6)
+    rake (12.3.2)
     roda (3.13.0)
       rack
     sequel (5.14.0)
+    tilt (2.0.9)
 
 PLATFORMS
   ruby
@@ -19,8 +21,10 @@ PLATFORMS
 DEPENDENCIES
   minitest
   rack-server-timing!
+  rake
   roda
   sequel
+  tilt
 
 BUNDLED WITH
-   1.16.2
+   1.17.2
