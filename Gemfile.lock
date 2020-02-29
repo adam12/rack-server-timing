@@ -9,7 +9,7 @@ GEM
   specs:
     minitest (5.11.3)
     rack (2.0.8)
-    rake (12.3.2)
+    rake (12.3.3)
     roda (3.13.0)
       rack
     sequel (5.14.0)
