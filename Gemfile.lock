@@ -8,7 +8,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     minitest (5.11.3)
-    rack (2.0.8)
+    rack (2.2.3)
     rake (12.3.3)
     roda (3.13.0)
       rack
