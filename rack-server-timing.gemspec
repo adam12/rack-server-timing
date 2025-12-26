@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = "rack-server-timing"
-  spec.version = "0.1.0"
+  spec.version = "0.2.0"
   spec.authors = ["Adam Daniels"]
 
   spec.summary = %q(Server-Timing headers for Rack applications)
